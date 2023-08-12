@@ -7,16 +7,18 @@
 let compScore = 0; 
 let playerScore = 0;
 
-for (let i = 1; i < 6; i++) {
-    if(i === 1){
-        console.log("Let's play Rock Paper Scissors");
-    }
-    console.log("Game: ", i);
-    let playerChoice = prompt("Your play(Type Rock, Paper, Scissors): ");
-    let compChoice = getPlay();
-    playerChoice = playerChoice.toLowerCase();
-    decideWinner(playerChoice, compChoice);
+let playerChoice = '';
+
+function getPlay(button) {
+    button.addEventListener('click', e => {
+        playerChoice = e.target.innerText;
+    });
 }
+
+const buttons = document.querySelectorAll('button');
+
+// Get user's play from button press.
+buttons.forEach(getPlay);
 
 if (playerScore > compScore) {
     console.log('Whooo! You won!');
@@ -26,19 +28,6 @@ else if(compScore > playerScore) {
 }
 else {
     console.log("It's a tie!");
-}
-
-
-function getPlay() {
-    choice = Math.floor(Math.random() * 3);
-    switch(choice) {
-        case 0:
-            return 'rock';
-        case 1:
-            return 'paper';
-        case 2:
-            return 'scissors';
-    }
 }
 
 function decideWinner(player, comp) {
