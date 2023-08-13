@@ -1,27 +1,11 @@
-/* Start a loop to play game 5 times.
-   Ask user to play.
+/* Ask user to play.
    Get the computer to choose a random option.
    Decide the winner from game logic for each turn.
-   Decide who won from the 5 games. */
-
-let compScore = 0; 
-let playerScore = 0;
-
-
-function play(e) {
-    let playerChoice = '';
-    playerChoice = e.target.innerText;
-    let compChoice = getCompPlay();
-    console.log(decideWinner(playerChoice, compChoice))
-    if (playerScore + compScore == 5) {
-        getGameWinner();
-        compScore = 0;
-        playerScore = 0;
-    }
-}
+   Decide who won from the 5 games. 
+   Ask user whether he/she wants to play again. */
 
 function getCompPlay() {
-    choice = Math.floor(Math.random() * 3);
+    let choice = Math.floor(Math.random() * 3);
     switch(choice) {
         case 0:
             return 'rock';
@@ -32,50 +16,104 @@ function getCompPlay() {
     }
 }
 
-const rock = document.querySelector('.rock');
-const paper = document.querySelector('.paper');
-const scissors = document.querySelector('.scissors');
-
-// Get user's play from button press
-rock.addEventListener('click', play);
-paper.addEventListener('click', play);
-scissors.addEventListener('click', play);
-
-function getGameWinner() {
-    if (playerScore > compScore) {
-        console.log('Whooo! You won!');
-    }
-    else if(compScore > playerScore) {
-        console.log('Bummer! You lost!');
-    }
-    else {
-        console.log("It's a tie!");
-    }
-}
-
 function decideWinner(player, comp) {
-    if(player == comp) {
-        console.log(player, "doesn't do anything to", comp);
-        console.log("It's a tie!")
-        return 'tie';
-    }
+    if (player == comp) return '';
     else if((player == 'rock' && comp == 'scissors') ||
             (player == 'paper' && comp == 'rock') ||
             (player == 'scissors' && comp == 'paper')) {
                 playerScore++;
-                printWinner(player, comp);
+                return [player, comp];
             }
     else if((comp == 'rock' && player == 'scissors') ||
             (comp == 'paper' && player == 'rock') ||
             (comp == 'scissors' && player == 'paper')) {
                 compScore++;
-                printWinner(comp, player);
+                return [comp, player];
             }
 }
 
-function printWinner(winnerChoice, loserChoice) {
-    console.log(winnerChoice, ' beats ', loserChoice);
-    console.log('----Scoreboard----');
-    console.log('You: ', playerScore);
-    console.log('Computer: ', compScore);
+function printWinner(decision, result) {
+    if(decision == '') result.textContent = "It's a tie!";
+
+    // first element in decision is winner; second is loser
+    else result.textContent = decision[0] + ' beats ' + decision[1];
+    playerScoreElement.textContent = playerScore;
+    compScoreElement.textContent = compScore;
+}
+
+function printGameWinner(htmlBody) {
+    let gameWinner = document.createElement('p');
+    if (playerScore > compScore) 
+        gameWinner.textContent = 'Whooo! You won!';
+    else if(compScore > playerScore) 
+        gameWinner.textContent = 'Bummer! You lost!';
+    else 
+        gameWinner.textContent = "It's a tie!";
+    htmlBody.appendChild(gameWinner);
+}
+
+function clearScreen() {
+    let htmlElement = document.querySelector('html');
+    let htmlBody = document.querySelector('body');
+    htmlElement.removeChild(htmlBody);
+}
+
+function createNew() {
+    let htmlElement = document.querySelector('html');
+    let htmlBody = document.createElement('body');
+    htmlElement.appendChild(htmlBody);
+    return htmlBody;
+}
+
+function resetScreen() {
+    clearScreen();
+    let htmlBody = createNew();
+    return htmlBody;
+}
+
+function playAgain(htmlBody) {
+    let playAgainbtn = document.createElement('button');
+    playAgainbtn.classList.add('again');
+    playAgainbtn.textContent = 'Play Again';
+    htmlBody.appendChild(playAgainbtn);
+    if (playAgainbtn) {
+        playAgainbtn.addEventListener('click', () => {
+            htmlBody = resetScreen();
+            htmlBody.innerHTML = initialContent;
+        });
+    }
+}
+let compScore = 0; 
+let playerScore = 0;
+
+// Store the initial HTML content to use when 'play again' is pressed.
+let initialContent = document.querySelector('body').innerHTML;
+
+const rock = document.querySelector('.rock');
+const paper = document.querySelector('.paper');
+const scissors = document.querySelector('.scissors');
+
+let result = document.querySelector('.result');
+let playerScoreElement = document.querySelector('.player-score');
+let compScoreElement = document.querySelector('.comp-score');
+
+// Get user's play from button press
+rock.addEventListener('click', playGame);
+paper.addEventListener('click', playGame);
+scissors.addEventListener('click', playGame);
+
+function playGame(e) {
+    if (compScore + playerScore >= 5) {
+        let htmlBody = resetScreen();
+        printGameWinner(htmlBody);
+        playerScore = 0;
+        compScore = 0;
+        playAgain(htmlBody);
+    }
+
+    let playerChoice = e.target.className;
+    let compChoice = '';
+    compChoice = getCompPlay();
+    let decision = decideWinner(playerChoice, compChoice);
+    printWinner(decision, result);
 }
