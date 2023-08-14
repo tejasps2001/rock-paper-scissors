@@ -3,34 +3,30 @@
     <head>
         <meta charset="utf-8">
         <title>Rock Paper Scissors</title>
-        <link rel="stylesheet" src="./style.css">
+        <link rel="stylesheet" href="./style.css">
+        <script src="./logic.js" defer></script>
     </head>
     <body>
-        <h1 class="game-name">ROCK PAPER SCISSORS</h1>
-
-        <h2>Score</h2>
-        <p class="score">
-            <span class="player-score">0</span>
-            <span> - </span>
-            <span class="comp-score">0</span>
-        </p>
+        <div class="game-name">
+            <h1 class="game-name">
+                <span class="rock-title">
+                    ROCK
+                </span>
+                <span class="paper-title">
+                    PAPER
+                </span>
+                <span class="scissors-title">
+                    SCISSORS
+                </span>
+            </h1>
+        </div>
+        <span class="scoreboard">You 0  0 Computer</span>
         
         <div class="player-options">
-            <button>
-                <img class="rock" src="./images/rock.svg" width="200">
-            </button>
-            
-            <button>
-                <img class="paper" src="./images/paper.svg" width="200">
-            </button>
-            
-            <button>
-                <img class="scissors" src="./images/scissors.svg" width="200">
-            </button>
+            <button class="rock">✊</button>
+            <button class="paper">✋</button>
+            <button class="scissors">✌️</button>
         </div>
-
         <p class="result"></p>
-
-        <script src="./logic.js"></script>
     </body>
 </html>

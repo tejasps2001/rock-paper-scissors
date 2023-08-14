@@ -37,12 +37,12 @@ function printWinner(decision, result) {
 
     // first element in decision is winner; second is loser
     else result.textContent = decision[0] + ' beats ' + decision[1];
-    playerScoreElement.textContent = playerScore;
-    compScoreElement.textContent = compScore;
+    scoreboard.textContent = 'You ' + playerScore + '  ' + compScore + ' Computer';
 }
 
 function printGameWinner(htmlBody) {
     let gameWinner = document.createElement('p');
+    gameWinner.classList.add('end-note');
     if (playerScore > compScore) 
         gameWinner.textContent = 'Whooo! You won!';
     else if(compScore > playerScore) 
@@ -78,24 +78,19 @@ function playAgain(htmlBody) {
     htmlBody.appendChild(playAgainbtn);
     if (playAgainbtn) {
         playAgainbtn.addEventListener('click', () => {
-            htmlBody = resetScreen();
-            htmlBody.innerHTML = initialContent;
+            location.reload();
         });
     }
 }
 let compScore = 0; 
 let playerScore = 0;
 
-// Store the initial HTML content to use when 'play again' is pressed.
-let initialContent = document.querySelector('body').innerHTML;
-
 const rock = document.querySelector('.rock');
 const paper = document.querySelector('.paper');
 const scissors = document.querySelector('.scissors');
 
 let result = document.querySelector('.result');
-let playerScoreElement = document.querySelector('.player-score');
-let compScoreElement = document.querySelector('.comp-score');
+let scoreboard = document.querySelector('.scoreboard');
 
 // Get user's play from button press
 rock.addEventListener('click', playGame);

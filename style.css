@@ -1,0 +1,93 @@
+body {
+    background-color: rgb(168, 145, 145);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@font-face {
+    font-family: Pebbles;
+    src: url(./fonts/Pebbles.ttf);
+}
+
+@font-face {
+    font-family: Bradhi;
+    src: url(./fonts/BRADHI.ttf);
+}
+
+@font-face {
+    font-family: Scissors;
+    src: url(./fonts/Scissor\ Cuts\ Regular.ttf);
+}
+
+@font-face {
+    font-family: pressStart;
+    src: url(./fonts/PressStart2P-Regular.ttf);
+}
+
+.rock, .paper, .scissors {
+    font-size: 150px;
+    flex: 1 3 50px;
+}
+
+.rock-title {
+    font-family: Pebbles, 'Times New Roman', Times, serif;
+    font-size: 100px;
+}
+
+.paper-title {
+    font-family: Bradhi, 'Times New Roman', Times, serif;
+    font-size: 100px;
+}
+
+.scissors-title {
+    font-family: Scissors, 'Times New Roman', Times, serif;
+    font-size: 100px;
+}
+
+.again, .end-note {
+    font-family: pressStart, 'Courier New', Courier, monospace;
+    font-size: 50px;
+    color: white;
+    padding: 20px;
+}
+
+h1, h2, p {
+    text-align: center;
+    color: white;
+    margin: 10px;
+}
+
+.scoreboard {
+    font-family: pressStart, 'Courier New', Courier, monospace;
+    color: white;
+    font-size: 40px;
+}
+
+.player-options {
+    margin: 50px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+button {
+    background-color: rgb(168, 145, 145);
+    border: 1px solid rgb(175, 126, 126);
+    margin: 10px;
+    border-radius: 10px;
+    filter: drop-shadow(0 0 0.75rem rgb(216, 209, 210));
+}
+
+button:hover {
+    background-color: rgb(177, 157, 157);
+}
+
+button:active {
+    background-color: rgb(151, 128, 128);;
+}
+
+.result {
+    font-size: 30px;
+    font-family: pressStart, 'Courier New', Courier, monospace;
+}
